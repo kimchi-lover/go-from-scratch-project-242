@@ -1,0 +1,2 @@
+# Fixtures have byte-exact sizes; never convert line endings on checkout.
+testdata/** -text
