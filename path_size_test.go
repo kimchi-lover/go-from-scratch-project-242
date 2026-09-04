@@ -21,7 +21,7 @@ import (
 //	onlydirs/sub/.gitkeep  0   (onlydirs has no files on the first level)
 //	hidden/visible.txt     4
 //	hidden/.secret         7   (hidden, counted only with all=true)
-//	hidden/.git/config     2   (inside a hidden directory, second level)
+//	hidden/.config/file    2   (inside a hidden directory, second level)
 func TestGetPathSize(t *testing.T) {
 	t.Parallel()
 
@@ -84,7 +84,7 @@ func TestGetPathSize(t *testing.T) {
 			want:      "4B",
 		},
 		{
-			// visible.txt (4B) + .secret (7B) + .git/config (2B).
+			// visible.txt (4B) + .secret (7B) + .config/file (2B).
 			name:      "dir recursive includes hidden dirs with all",
 			path:      filepath.Join("testdata", "hidden"),
 			recursive: true,
@@ -105,12 +105,12 @@ func TestGetPathSize(t *testing.T) {
 		},
 		{
 			name: "hidden dir passed explicitly is ignored by default",
-			path: filepath.Join("testdata", "hidden", ".git"),
+			path: filepath.Join("testdata", "hidden", ".config"),
 			want: "0B",
 		},
 		{
 			name: "hidden dir passed explicitly is measured with all",
-			path: filepath.Join("testdata", "hidden", ".git"),
+			path: filepath.Join("testdata", "hidden", ".config"),
 			all:  true,
 			want: "2B",
 		},
